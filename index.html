@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Portal - Login</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #050a18;
+            --primary-blue: #2557ff;
+            --input-bg: #f5f8ff;
+            --text-gray: #a0aec0;
+            --glow-teal: rgba(0, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            width: 900px;
+            height: 600px;
+            display: flex;
+            background: rgba(10, 20, 45, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 87, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Left Side: Form */
+        .form-side {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: radial-gradient(circle at top left, var(--glow-teal), transparent 60%);
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .subtitle { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 30px; }
+        .subtitle a { color: #00d2ff; text-decoration: none; }
+
+        .input-group { margin-bottom: 20px; position: relative; }
+        .input-group label { display: block; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-gray); }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 8px;
+            border: none;
+            background: var(--input-bg);
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        .btn-signin {
+            background: var(--primary-blue);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 87, 255, 0.4);
+        }
+
+        .btn-signin:hover { background: #1a44d6; transform: translateY(-2px); }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+        .divider span { font-size: 0.7rem; color: var(--text-gray); }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            background: transparent;
+            color: white;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .social-btn:hover { background: rgba(255,255,255,0.05); }
+        .social-btn i { margin-right: 10px; font-size: 1.1rem; }
+
+        /* Right Side: Animation Area */
+        .animation-side {
+            flex: 1.2;
+            background: linear-gradient(135deg, #0a142d 0%, #050a18 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-left: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* College Students Animation Placeholder */
+        .student-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animated Shapes simulating students in a hallway */
+        .student {
+            position: absolute;
+            bottom: -50px;
+            width: 40px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px 20px 5px 5px;
+            animation: walk 15s linear infinite;
+        }
+
+        .student::before { /* Head */
+            content: "";
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        @keyframes walk {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; left: 10%; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-600px) scale(1.2); opacity: 0; left: 80%; }
+        }
+
+        /* Grid Background Effect */
+        .grid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(37, 87, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Logout Form (Hidden by default) */
+        .logout-screen {
+            display: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 850px) {
+            .container { width: 95%; height: auto; flex-direction: column; }
+            .animation-side { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainContainer">
+        <!-- Login Form Side -->
+        <div class="form-side" id="loginForm">
+            <h1>Sign in</h1>
+            <p class="subtitle">Don't have an account? <a href="#">Create now</a></p>
+            
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" placeholder="example@gmail.com">
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="@#*%">
+                <i class="fa-regular fa-eye"></i>
+            </div>
+
+            <button class="btn-signin" onclick="toggleView()">Sign in</button>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <button class="social-btn">
+                <i class="fa-brands fa-google" style="color: #ea4335;"></i> Continue with Google
+            </button>
+            <button class="social-btn">
+                <i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Continue with Facebook
+            </button>
+        </div>
+
+        <!-- Logout Form Side (Initially Hidden) -->
+        <div class="form-side logout-screen" id="logoutForm">
+            <div class="profile-img">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <h1>Welcome back!</h1>
+            <p class="subtitle">You are currently logged in as <b>Student #2024</b></p>
+            <button class="btn-signin" style="background: #e74c3c;" onclick="toggleView()">Logout</button>
+        </div>
+
+        <!-- Right Side: Background & Animation -->
+        <div class="animation-side">
+            <div class="grid-overlay"></div>
+            <div class="student-container" id="studentBox">
+                <!-- Students will be generated by JS -->
+            </div>
+            
+            <!-- Central Shield Icon from your image -->
+            <div style="position: absolute; z-index: 5; text-align: center;">
+                <svg width="200" height="200" viewBox="0 0 100 100">
+                    <defs>
+                        <radialGradient id="shieldGlow">
+                            <stop offset="0%" stop-color="#00ffff" />
+                            <stop offset="100%" stop-color="#2557ff" />
+                        </radialGradient>
+                    </defs>
+                    <path d="M50 5 L15 20 L15 50 C15 75 50 95 50 95 C50 95 85 75 85 50 L85 20 L50 5Z" fill="none" stroke="url(#shieldGlow)" stroke-width="0.5" />
+                    <circle cx="50" cy="45" r="8" fill="url(#shieldGlow)" />
+                    <rect x="47" y="45" width="6" height="15" fill="url(#shieldGlow)" />
+                </svg>
+                <p style="color: #00d2ff; font-size: 0.7rem; letter-spacing: 2px; margin-top: -40px;">SECURE ACCESS</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate animated student shapes
+        const studentBox = document.getElementById('studentBox');
+        function createStudents() {
+            for(let i=0; i<8; i++) {
+                setTimeout(() => {
+                    const s = document.createElement('div');
+                    s.className = 'student';
+                    s.style.left = Math.random() * 80 + '%';
+                    s.style.animationDelay = (Math.random() * 10) + 's';
+                    s.style.opacity = Math.random();
+                    studentBox.appendChild(s);
+                }, i * 1000);
+            }
+        }
+        createStudents();
+
+        // Toggle between Login and Logout (Simulated)
+        function toggleView() {
+            const login = document.getElementById('loginForm');
+            const logout = document.getElementById('logoutForm');
+            
+            if(login.style.display === "none") {
+                login.style.display = "flex";
+                logout.style.display = "none";
+            } else {
+                login.style.display = "none";
+                logout.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
